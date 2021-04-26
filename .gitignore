@@ -1,0 +1,35 @@
+bin/*
+!bin/data/
+bin/data/model*
+!bin/data/.gitkeep
+obj
+Makefile
+Project.xcconfig
+*.xcodeproj
+openFrameworks-Info.plist
+
+# macOS
+.DS_Store
+*.a
+*.app
+
+# Linux
+*.o
+*.d
+*~
+
+# Windows
+*.exe
+*.dll
+
+# Xcode
+*.mode1v3
+*.pbxuser
+*.perspectivev3
+xcuserdata
+xcshareddata
+build
+
+# Codeblocks
+*.layout
+*.depend
