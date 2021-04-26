@@ -10,12 +10,10 @@
 set -e
 
 # ZKM NextCloud shared folder direct link
-URL="https://cloud.zkm.de/index.php/s/gfWEjyEr9X4gyY6/download?path=%2F&files=model_handtracking.zip"
+URL="https://cloud.zkm.de/index.php/s/gfWEjyEr9X4gyY6"
 
 SRC=downloads
 DEST=../..
-
-set -x
 
 ##### functions
 
