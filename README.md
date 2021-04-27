@@ -38,11 +38,11 @@ Overview:
 
 ### Downloading Pre-Trained Model
 
-A version of the pre-trained model converted to TensorFlow2 is provided which you cna download as `model_hancktracking.zip` from a public shared link here:
+A version of the pre-trained model converted to TensorFlow2 is provided which you can download as `model_hancktracking.zip` from a public shared link here:
 
 https://cloud.zkm.de/index.php/s/gfWEjyEr9X4gyY6
 
-After unzippiong the file, place the SavedModel folder named "model" in `HandTracker/bin/data/`.
+After unzipping the file, place the SavedModel folder named "model" in `HandTracker/bin/data/`.
 
 To make this quick, a script is provided to download and install the model (requires a Unix shell, curl, and unzip):
 
@@ -91,7 +91,7 @@ The openFrameworks application runs the tracker model using webcam input. The tr
 
 ### Key Commands
 
-* `+` / `-`: increment/decremnt landmark threshold 0 - 1
+* `+` / `-`: increment/decrement landmark threshold 0 - 1
 * `[` / `]`: increment/decrement palm threshold 0 - 1
 * `d`: show/hide debug view
 * `p`: pause/unpause tracker (saves CPU when not in use)
