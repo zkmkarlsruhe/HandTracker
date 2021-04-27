@@ -21,23 +21,23 @@
 
 class ofApp : public ofBaseApp {
 
-	public:
-		void setup();
-		void update();
-		void draw();
+    public:
+        void setup();
+        void update();
+        void draw();
         void exit();
-		
-		void keyPressed(int key);
-		void keyReleased(int key);
-		void mouseMoved(int x, int y);
-		void mouseDragged(int x, int y, int button);
-		void mousePressed(int x, int y, int button);
-		void mouseReleased(int x, int y, int button);
-		void mouseEntered(int x, int y);
-		void mouseExited(int x, int y);
-		void windowResized(int w, int h);
-		void dragEvent(ofDragInfo dragInfo);
-		void gotMessage(ofMessage msg);
+
+        void keyPressed(int key);
+        void keyReleased(int key);
+        void mouseMoved(int x, int y);
+        void mouseDragged(int x, int y, int button);
+        void mousePressed(int x, int y, int button);
+        void mouseReleased(int x, int y, int button);
+        void mouseEntered(int x, int y);
+        void mouseExited(int x, int y);
+        void windowResized(int w, int h);
+        void dragEvent(ofDragInfo dragInfo);
+        void gotMessage(ofMessage msg);
 
         bool debug = true; //< shown debug view?
         bool mirror = true; //< mirror camera input horizontally?
@@ -45,10 +45,10 @@ class ofApp : public ofBaseApp {
         bool run = true; //< run tracking? set = false to save CPU
 
         bool newInput = false; //< is there new input to process?
-		
-		// neural network I/O
-		ofxTF2::ThreadedModel model;
-		cppflow::tensor input;
+
+        // neural network I/O
+        ofxTF2::ThreadedModel model;
+        cppflow::tensor input;
         ofImage imgOut;
         Hand hand;
         struct Threshold {
@@ -59,7 +59,7 @@ class ofApp : public ofBaseApp {
         const float nnHeight = 224;
 
         // video input
-		ofVideoGrabber vidIn;
+        ofVideoGrabber vidIn;
         const float camWidth = 640;
         const float camHeight = 480;
 

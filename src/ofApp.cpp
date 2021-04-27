@@ -15,37 +15,37 @@
 
 //--------------------------------------------------------------
 void ofApp::setup() {
-	ofSetFrameRate(60);
-	ofSetVerticalSync(true);
-	ofSetWindowTitle("Hand Tracker");
+    ofSetFrameRate(60);
+    ofSetVerticalSync(true);
+    ofSetWindowTitle("Hand Tracker");
     ofEnableAlphaBlending();
     //ofSetLogLevel("HandTracker", OF_LOG_VERBOSE);
 
-	// setup model
-	if(!model.load("model")) {
-		std::exit(EXIT_FAILURE);
-	}
-	std::vector<std::string> inputNames = {
-		"input_1"
-	};
-	std::vector<std::string> outputNames = {
-		"Identity",
-		"Identity_1",
+    // setup model
+    if(!model.load("model")) {
+        std::exit(EXIT_FAILURE);
+    }
+    std::vector<std::string> inputNames = {
+        "input_1"
+    };
+    std::vector<std::string> outputNames = {
+        "Identity",
+        "Identity_1",
         "Identity_2"
-	};
-	model.setup(inputNames, outputNames);
+    };
+    model.setup(inputNames, outputNames);
 
-	// setup video grabber
-	vidIn.setDesiredFrameRate(60);
-	vidIn.setup(camWidth, camHeight);
+    // setup video grabber
+    vidIn.setDesiredFrameRate(60);
+    vidIn.setup(camWidth, camHeight);
 
-	// allocate output image
-	imgOut.allocate(nnWidth, nnHeight, OF_IMAGE_COLOR);
+    // allocate output image
+    imgOut.allocate(nnWidth, nnHeight, OF_IMAGE_COLOR);
     imgOut.getTexture().setTextureMinMagFilter(GL_NEAREST, GL_NEAREST);
 
-	// start the model!
-	model.setIdleTime(16); // check every frame, responsive but save some CPU
-	model.startThread();
+    // start the model!
+    model.setIdleTime(16); // check every frame, responsive but save some CPU
+    model.startThread();
 
     // osc
     sender.setup("localhost", 9999);
@@ -54,38 +54,38 @@ void ofApp::setup() {
 //--------------------------------------------------------------
 void ofApp::update() {
 
-	// create tensor from video frame
-	vidIn.update();
-	if(run && vidIn.isFrameNew()) {
-		// get the frame, resize, and copy to tensor
-		ofPixels & pixels = vidIn.getPixels();
-		ofPixels resizedPixels(pixels);
-		resizedPixels.resize(nnWidth, nnHeight);
-		input = ofxTF2::pixelsToTensor(resizedPixels);
-		input = cppflow::cast(input, TF_UINT8, TF_FLOAT);
-		input = cppflow::div(input, {255.0f});
-		input = cppflow::expand_dims(input, 0);
-		imgOut.setFromPixels(resizedPixels);
-		imgOut.update();
-		newInput = true;
-	}
+    // create tensor from video frame
+    vidIn.update();
+    if(run && vidIn.isFrameNew()) {
+        // get the frame, resize, and copy to tensor
+        ofPixels & pixels = vidIn.getPixels();
+        ofPixels resizedPixels(pixels);
+        resizedPixels.resize(nnWidth, nnHeight);
+        input = ofxTF2::pixelsToTensor(resizedPixels);
+        input = cppflow::cast(input, TF_UINT8, TF_FLOAT);
+        input = cppflow::div(input, {255.0f});
+        input = cppflow::expand_dims(input, 0);
+        imgOut.setFromPixels(resizedPixels);
+        imgOut.update();
+        newInput = true;
+    }
 
-	// thread-safe conditional input update
-	if(newInput && model.readyForInput()) {
-		model.update(input);
-		newInput = false;
-	}
+    // thread-safe conditional input update
+    if(newInput && model.readyForInput()) {
+        model.update(input);
+        newInput = false;
+    }
 
-	// thread-safe conditional output update
-	if(model.isOutputNew()) {
-		auto outputs = model.getOutputs();
+    // thread-safe conditional output update
+    if(model.isOutputNew()) {
+        auto outputs = model.getOutputs();
 
-		// get the landmarks 
-		ofxTF2::tensorToVector(outputs[0], hand.positions);
+        // get the landmarks
+        ofxTF2::tensorToVector(outputs[0], hand.positions);
 
-		// check whether hand is present
-		// outputs[1] is a scalar... conversion to scalar may be better
-		std::vector<float> palm, landmark;
+        // check whether hand is present
+        // outputs[1] is a scalar... conversion to scalar may be better
+        std::vector<float> palm, landmark;
         ofxTF2::tensorToVector(outputs[2], palm);
         ofxTF2::tensorToVector(outputs[1], landmark);
         hand.palm = palm[0];
@@ -132,7 +132,7 @@ void ofApp::update() {
 //            message.addFloatArg(rotation);
 //            sender.sendMessage(message);
         }
-	}
+    }
 }
 
 //--------------------------------------------------------------
@@ -182,7 +182,7 @@ void ofApp::draw() {
         }
     ofPopMatrix();
 
-	// draw info
+    // draw info
     if(debug) {
         std::string text;
         text = ofToString((int)ofGetFrameRate()) + " fps\n";
@@ -214,10 +214,10 @@ void ofApp::exit() {
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key) {
-	switch(key) {
+    switch(key) {
         case '+': case '=':
             threshold.landmark = ofClamp(threshold.landmark + 0.01, 0, 1);
-			break;
+            break;
         case '-':
             threshold.landmark = ofClamp(threshold.landmark - 0.01, 0, 1);
             break;
@@ -228,15 +228,15 @@ void ofApp::keyPressed(int key) {
             threshold.palm = ofClamp(threshold.palm - 0.01, 0, 1);
             break;
         case 'd':
-        debug = !debug;
-        break;
+            debug = !debug;
+            break;
         case 'p':
             run = !run;
             break;
         case 'w':
             wireframe = !wireframe;
             break;
-	}
+    }
 }
 
 //--------------------------------------------------------------
