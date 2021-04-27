@@ -1,5 +1,7 @@
+-- Kwak Demo
+-- Copyright (c) 2021 Dan Wilcox.
 
--- Frog
+----- Frog -----
 
 local Frog = class()
 
@@ -7,8 +9,7 @@ function Frog:__init(x, y)
 	self.pos = glm.vec2(x, y)
 	self.colors = {
 		head = of.Color(50, 200, 50),
-		mouth = of.Color(50, 100, 75),
-		overlay = of.Color.aqua
+		mouth = of.Color(50, 100, 75)
 	}
 	self.animation = {
 		mouth = {
@@ -18,7 +19,6 @@ function Frog:__init(x, y)
 		}
 	}
 	self.mouth = 0
-	self.overlay = 0
 	self.timestamp = 0
 end
 
@@ -74,7 +74,7 @@ function Frog:set(v)
 	self.mouth = of.clamp(v, 0, 1)
 end
 
--- main
+----- main -----
 
 local frogs = {
 	Frog(80, 60),
@@ -93,7 +93,7 @@ local size = {
 	h = 360
 }
 local scale = {w = of.getWidth() / size.w, h = of.getHeight() / size.h}
-local which = 0
+local mode = 0
 
 function setup()
 	of.setWindowShape(size.w, size.h)
@@ -105,7 +105,7 @@ function setup()
 
 	loaf.setSendHost("localhost")
 	loaf.setSendPort(9999)
-	loaf.send("/which", which)
+	loaf.send("/mode", mode)
 end
 
 function update()
@@ -125,8 +125,8 @@ end
 
 function keyPressed(key)
 	if key == 32 then
-		which = (which ~= 0 and 0 or 1)
-		loaf.send("/which", which)
+		mode = (mode ~= 0 and 0 or 1)
+		loaf.send("/mode", mode)
 	elseif key == 49 then
 		frogs[1]:trigger()
 	elseif key == 50 then
@@ -142,7 +142,6 @@ function windowResized(w, h)
 end
 
 function oscReceived(message)
-	--print(message)
 	if message:getAddress() == "/one" then
 		frogs[1]:trigger()
 	elseif message:getAddress() == "/two" then

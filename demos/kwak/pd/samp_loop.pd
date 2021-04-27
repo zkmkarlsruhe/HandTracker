@@ -1,4 +1,5 @@
 #N canvas 43 127 559 523 12;
+#X declare -path ./lib;
 #X obj 110 231 phasor~;
 #X obj 355 168 -;
 #X obj 355 83 swap;
@@ -25,6 +26,7 @@
 #X text 204 83 args: table;
 #X obj 156 139 sel 1;
 #X obj 45 83 t f f;
+#X obj 370 478 declare -path ./lib;
 #X connect 0 0 6 0;
 #X connect 0 0 3 0;
 #X connect 1 0 3 1;

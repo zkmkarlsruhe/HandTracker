@@ -1,4 +1,5 @@
 #N canvas 343 138 559 523 12;
+#X declare -path ./lib;
 #X obj 355 168 -;
 #X obj 355 83 swap;
 #X obj 177 282 *~;
@@ -34,6 +35,7 @@
 #X obj 110 231 phasor~ 1;
 #X obj 323 477 outlet;
 #X obj 323 352 t b b;
+#X obj 402 478 declare -path ./lib;
 #X connect 0 0 2 1;
 #X connect 0 0 12 0;
 #X connect 1 0 0 0;

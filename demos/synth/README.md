@@ -7,7 +7,22 @@ Simple additive synth control:
 * detect hand to engage envelope
 * ping gesture to "squeeze" pitch
 
-Usage:
+Usage
+-----
+
 1. start hand tracker
-2. open `synth.pd` in Pure Data
-3. enjoy
+2. open `synth.pd` in Pure Data & enable the listen toggle box
+
+OSC Communication
+-----------------
+
+```
+tracker --OSC--> synth.pd
+```
+
+tracker:
+* send address: "localhost"
+* send port: 9999
+
+synth.pd
+* receive port: 9999
