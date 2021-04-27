@@ -1,6 +1,8 @@
 Kwak Demo
 ==========
 
+![screenshot](doc/screenshot.png)
+
 Copyright (c) 2021 Dan Wilcox.
 
 Simple virtual character puppetry:
