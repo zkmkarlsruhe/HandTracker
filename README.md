@@ -7,6 +7,16 @@ An ofxTensorFlow2 example using the Google Mediapipe Hand Tracking model as conv
 
 https://github.com/geaxgx/depthai_hand_tracker
 
+The code has been developed by the ZKM | Hertz-Lab as part of the project [»The Intelligent Museum«](https://hertz-gitlab.zkm.de/Hertz-Lab/Research/intelligent-museum/ofxTensorFlow2/-/tree/main#the-intelligent-museum).
+
+Copyright (c) 2021 ZKM | Karlsruhe.  
+Copyright (c) 2021 Dan Wilcox.
+
+BSD Simplified License.
+
+For information on usage and redistribution, and for a DISCLAIMER OF ALL
+WARRANTIES, see the file, "LICENSE.txt," in this distribution.
+
 Dependencies
 ------------
 
@@ -77,18 +87,50 @@ make RunReleaseTF2
 Usage
 -----
 
-The openFrameworks application runs the tracker model using webcam input. The tracked hand output is mapped to several parameters which are normalized and sent out using OSC.
+The openFrameworks application runs the tracker model using webcam input. The tracked hand output is mapped to several parameters which are normalized and sent out using OSC. Palm and landmark detection thresholds can be adjusted acording to lighting or other background conditions.
+
+### Key Commands
+
+* `+` / `-`: increment/decremnt landmark threshold 0 - 1
+* `[` / `]`: increment/decrement palm threshold 0 - 1
+* `d`: show/hide debug view
+* `p`: pause/unpause tracker (saves CPU when not in use)
+* `w`: show/hide hand wireframe in non-debug view
+
+### OSC Communication
 
 Sends to:
-* Address: `localhost` ie. `127.0.0.1`
-* Port: `9999`
+* address: `localhost` ie. `127.0.0.1`
+* port: `9999`
 
 Message specification:
 
-* /detected f: detection event, bool 1 found - 0 lost
-* /pinch f: relative pinch between thumb and middle fingertips, float 0 far - 1 close
+* **/detected status**: detection event
+  - status: float, boolean 1 found - 0 lost
+* **/pinch value**: relative pinch between thumb and middle fingertips
+  - value: float, 0 far - 1 close
 
 Demos
 -----
 
-*Info to be added.*
+The demos consist of rapid prototypes built using the following components:
+
+* hand tracker
+* sound engine: [Pure Data (Pd)](http://pure-data.info/)
+* visual front end: [loaf](http://danomatika.com/code/loaf)
+
+[Pure Data](http://pure-data.info/) is used as a sound engine and mapping running a custom patches which communicate with loaf via OSC. Install Pd "vanilla" from: http://puredata.info/downloads/pure-data
+
+Custom visual front ends are written in Lua for [loaf](http://danomatika.com/code/loaf), a Lua interpreter with bindings for [openFrameworks](http://openframeworks.cc/) which includes a built-in Open Sound Control (OSC) server.
+
+An example of one such system using all three applications (tracker, Pd, & loaf) would be:
+
+```
+tracker --OSC--> Pure Data patches <==OSC==> loaf scripts
+```
+
+### Usage
+
+To set up a run environment on macOS, download both Pure Data and loaf and place the .apps in the system `/Applications` folder.
+
+To run a loaf project, drag the main Lua script or project folder onto the loaf.app. To run a Pure Data patch, double-click and/or open the main patch file in Pure Data.
