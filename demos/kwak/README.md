@@ -16,7 +16,7 @@ Usage
 
 1. start hand tracker
 2. open `pd/kwak.pd` in Pure Data & enable the listen toggle box
-3. run `main.lua` in loaf
+3. run `main.lua` in loaf, ie. drag and drop script onto loaf.app
 4. in loaf, toggle modes using spacebar
 
 OSC Communication
