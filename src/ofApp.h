@@ -65,10 +65,15 @@ class ofApp : public ofBaseApp {
 
         // mappings
         struct Mapping {
-            Range pinch = {20, 110, 1, 0};
+            Range pinch = {110, 20, 0, 1};
+            Range spread = {64, 120, 0, 1};
 //            Range palm = {-0.02, 0, 1, 0};
 //            Range rotation = {20, 60, 0, 1};
         } mapping;
+        float pinch = 0;
+        float spread = 0;
+        float spreadDist; //< average distance from palm to all finger tips
+        std::size_t farthestIndex; //< farthest finger tip index from palm
 
         // OSC
         ofxOscSender sender;

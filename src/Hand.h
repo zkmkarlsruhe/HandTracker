@@ -10,6 +10,8 @@
  *
  * This code has been developed at ZKM | Hertz-Lab as part of „The Intelligent
  * Museum“ generously funded by the German Federal Cultural Foundation.
+ *
+ * references: https://google.github.io/mediapipe/solutions/hands.html
  */
 #pragma once
 
