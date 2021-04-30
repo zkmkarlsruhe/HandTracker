@@ -3,7 +3,7 @@ local font = of.TrueTypeFont()
 -- from https://www.babbel.com/en/magazine/how-to-say-hello-in-10-different-languages
 local langs = {"Hello", "Guten Tag", "Bonjour", "Hola", "Zdravstvuyte",
                "Ni Hao", "Konnichiwa", "Salve", "Shikamoo", "Namaste",
-               "Shalom", "God dag"} 
+               "Shalom", "God Dag"}
 local hello = {
 	text = nil,
 	timestamp = {
@@ -24,13 +24,13 @@ local trail = {
 	diff = glm.vec3(0, 0, 0),
 	trigger = {
 		count = 0,
-		pdirection = 0, -- -1 left, 0 neutral, 1 right
+		direction = 0, -- -1 left, 0 neutral, 1 right
 		timestamp = 0,
 		points = {},
 		clear = function(self)
 			self.count = 0
 			self.points = {}
-			self.pdirection = 0
+			self.direction = 0
 		end
 	}
 }
@@ -101,6 +101,20 @@ function draw()
 		local rect = font:getStringBoundingBox(hello.text, 0, 0)
 		font:drawString(hello.text, of.getWidth()/2 - rect.width / 2, of.getHeight()/2 + rect.height/2)
 	end
+
+	-- last trigger point direction
+	if ddebug then
+		of.setColor(0)
+		of.drawBitmapString("waves: "..trail.trigger.count, 6, 12)
+		of.drawBitmapString("direction: ", 6, 24)
+		if trail.trigger.direction ~= 0 then
+			local dir = (trail.trigger.direction == -1 and "left" or
+				         trail.trigger.direction == 1 and "right" or
+				         "-")
+			of.setColor(200, 100, 200)
+			of.drawBitmapString(dir, 90, 24)
+		end
+	end
 end
 
 function randomHello()
@@ -135,10 +149,10 @@ function oscReceived(message)
 		trail.diff = trail.average - paverage
 		if of.getElapsedTimef() - trail.trigger.timestamp > 0.1 and
 			math.abs(trail.diff.x) > 0.01 and math.abs(trail.diff.z) < 0.001 and
-			math.sign(trail.diff.x) ~= trail.trigger.pdirection then
+			math.sign(trail.diff.x) ~= trail.trigger.direction then
 			trail.trigger.count = trail.trigger.count + 1
 			trail.trigger.timestamp = of.getElapsedTimef()
-			trail.trigger.pdirection = math.sign(trail.diff.x)
+			trail.trigger.direction = math.sign(trail.diff.x)
 			table.insert(trail.trigger.points, glm.vec3(hand.centroid.x, hand.centroid.y, hand.centroid.z))
 		end
 	end
