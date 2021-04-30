@@ -1,5 +1,5 @@
 -- Kwak Demo
--- Copyright (c) 2021 Dan Wilcox.
+-- Copyright (c) 2021 Dan Wilcox
 
 ----- Frog -----
 
