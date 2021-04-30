@@ -109,8 +109,11 @@ Message specification:
   - status: float, boolean 1 found - 0 lost
 * **/pinch value**: relative pinch between thumb and middle fingertips
   - value: float, 0 far - 1 close
-* **/spread value**: realtive average distance between finger tip and palm
+* **/spread value**: relative average distance between finger tip and palm
   - value: float, 0 fist - 1 flat hand
+* **/centroid x y**: normalized 2d centroid between palm and 5 finger tips
+  - x: float, 0 - left, 1 - right
+  - y: float, 0 - top, 1 - bottom
 
 Demos
 -----

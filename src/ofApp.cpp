@@ -107,16 +107,10 @@ void ofApp::update() {
             glm::vec3 middleTip = hand.getPointAtIndex(Hand::fingers.middle[Hand::fingers.size-1]);
             glm::vec3 palmCenter = hand.getPointAtIndex(Hand::fingers.thumb[0]);
 
-            // pinch
-            float dist = glm::distance(thumbTip, middleTip);
-            pinch = mapping.pinch.map(dist);
-            ofLogVerbose("HandTracker") << "pinch: " << pinch << " dist: " << dist;
-            message.setAddress("/pinch");
-            message.addFloatArg(pinch);
-            sender.sendMessage(message);
-
-            // spread
-            spreadDist = 0;
+            float dist = 0;
+            float spreadDist = 0;
+            glm::vec3 centroid = palmCenter;
+            std::size_t farthestIndex = 0;
             std::vector<std::size_t> fingerTips = {4, 8, 12, 16, 20}; // thumb, index, middle, ring, pinky
             for(auto i : fingerTips) {
                 glm::vec3 tip = hand.getPointAtIndex(i);
@@ -125,30 +119,35 @@ void ofApp::update() {
                     spreadDist += dist / 5;
                     farthestIndex = i;
                 }
+                centroid += tip;
             }
-            spread = mapping.spread.map(spreadDist);
+            centroid /= 6;
+
+            // pinch
+            dist = glm::distance(thumbTip, middleTip);
+            float pinch = mapping.pinch.map(dist);
+            ofLogVerbose("HandTracker") << "pinch: " << pinch << " dist: " << dist;
+            message.setAddress("/pinch");
+            message.addFloatArg(pinch);
+            sender.sendMessage(message);
+
+            // spread
+            float spread = mapping.spread.map(spreadDist);
             ofLogVerbose("HandTracker") << "spread: " << spread << " farthest index: " << farthestIndex;
             message.clear();
             message.setAddress("/spread");
             message.addFloatArg(spread);
             sender.sendMessage(message);
 
-//            // palm
-//            float palm = mapping.palm.map(palmCenter.z);
-//            ofLogVerbose("HandTracker") << "palm: " << palm << " z: " << palmCenter.z;
-//            message.clear();
-//            message.setAddress("/palm");
-//            message.addFloatArg(palm);
-//            sender.sendMessage(message);
-//
-//            // rotation
-//            float angle = ofRadToDeg(glm::angle(glm::normalize(middleTip), glm::normalize(palmCenter)));
-//            float rotation = mapping.rotation.map(angle);
-//            ofLogVerbose("HandTracker") << "rotation: " << rotation << " angle: " << angle;
-//            message.clear();
-//            message.setAddress("/rotation");
-//            message.addFloatArg(rotation);
-//            sender.sendMessage(message);
+            // centroid
+            float centroidX = (mirror ? (nnWidth - centroid.x) / nnWidth : centroid.x / nnWidth);
+            float centroidY = centroid.y / nnHeight;
+            ofLogVerbose("HandTracker") << "centroid: " << centroidX << " " << centroidY;
+            message.clear();
+            message.setAddress("/centroid");
+            message.addFloatArg(centroidX);
+            message.addFloatArg(centroidY);
+            sender.sendMessage(message);
         }
     }
 }
@@ -193,24 +192,6 @@ void ofApp::draw() {
         if(hand.detected) {
             if(debug) {
                 hand.draw();
-
-                // pinch (red)
-                glm::vec3 thumbTip = hand.getPointAtIndex(Hand::fingers.thumb[Hand::fingers.size-1]);
-                glm::vec3 middleTip = hand.getPointAtIndex(Hand::fingers.middle[Hand::fingers.size-1]);
-                ofSetColor(ofColor::red);
-                ofDrawLine(thumbTip, middleTip);
-
-                // spread (yellow)
-                glm::vec3 palmCenter = hand.getPointAtIndex(Hand::fingers.thumb[0]);
-                glm::vec3 tip = hand.getPointAtIndex(farthestIndex);
-                glm::vec3 midPoint(0, 0, 0);
-                midPoint.x = ofLerp(palmCenter.x, middleTip.x, 0.5);
-                midPoint.y = ofLerp(palmCenter.y, middleTip.y, 0.5);
-                midPoint.z = ofLerp(palmCenter.z, middleTip.z, 0.5);
-                ofSetColor(ofColor::yellow, 32);
-                ofDrawCircle(midPoint, spreadDist/2);
-                ofSetColor(ofColor::yellow);
-                ofDrawLine(palmCenter, tip);
             }
             else if(wireframe) {
                 hand.drawLines();
