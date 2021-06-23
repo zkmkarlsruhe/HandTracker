@@ -1,4 +1,14 @@
-0.1.0: 2021 Apr 27
+0.3.0: 2021 Jun 23
+
+* added average spread between palm & finger tips value
+* added palm - finger tip centroid tracking
+* added hello demo
+* added code of conduct
+* added missing license file and project attribution
+
+* show detection show trigger debug info
+
+0.2.0: 2021 Apr 27
 
 * added dependency lib pd abstractions
 * added demo info

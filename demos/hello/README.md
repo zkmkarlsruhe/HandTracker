@@ -12,7 +12,7 @@ Usage
 2. run `main.lua` in loaf, ie. drag and drop script onto loaf.app
 3. wave
 
-After the greeting a shown, the wave detection will wait a bit before checking for the next wave.
+After the greeting is shown, the wave detection will wait a bit before checking for the next wave.
 
 OSC Communication
 -----------------

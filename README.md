@@ -1,7 +1,7 @@
 Hand Tracker
 ============
 
-![screenshot](doc/screenshot.png)
+![screenshot](media/screenshot.png)
 
 An ofxTensorFlow2 example using the Google Mediapipe Hand Tracking model as converted to TF2 from the following GitHub repo:
 
@@ -10,7 +10,7 @@ https://github.com/geaxgx/depthai_hand_tracker
 The code has been developed by the ZKM | Hertz-Lab as part of the project [»The Intelligent Museum«](https://hertz-gitlab.zkm.de/Hertz-Lab/Research/intelligent-museum/ofxTensorFlow2/-/tree/main#the-intelligent-museum).
 
 Copyright (c) 2021 ZKM | Karlsruhe.  
-Copyright (c) 2021 Dan Wilcox.
+Copyright (c) 2021 Dan Wilcox.  
 
 BSD Simplified License.
 
@@ -33,12 +33,12 @@ Overview:
 
 1. Follow the steps in the ofxTensorFlow2 "Installation & Build" section for you platform
 2. Download the pre-trained model and place it in `HandTracker/bin/data`
-2. Generate the project files for this folder using the OF ProjectGenerator
-3. Build for your platform
+3. Generate the project files for this folder using the OF ProjectGenerator
+4. Build for your platform
 
 ### Downloading Pre-Trained Model
 
-A version of the pre-trained model converted to TensorFlow2 is provided which you can download as `model_hancktracking.zip` from a public shared link here:
+A version of the pre-trained model converted to TensorFlow2 is provided which you can download as `model_handtracking.zip` from a public shared link here:
 
 https://cloud.zkm.de/index.php/s/gfWEjyEr9X4gyY6
 
@@ -139,3 +139,14 @@ tracker --OSC--> Pure Data patches <==OSC==> loaf scripts
 To set up a run environment on macOS, download both Pure Data and loaf and place the .apps in the system `/Applications` folder.
 
 To run a loaf project, drag the main Lua script or project folder onto the loaf.app. To run a Pure Data patch, double-click and/or open the main patch file in Pure Data.
+
+The Intelligent Museum
+----------------------
+
+An artistic-curatorial field of experimentation for deep learning and visitor participation
+
+The [ZKM | Center for Art and Media](https://zkm.de/en) and the [Deutsches Museum Nuremberg](https://www.deutsches-museum.de/en/nuernberg/information/) cooperate with the goal of implementing an AI-supported exhibition. Together with researchers and international artists, new AI-based works of art will be realized during the next four years (2020-2023).  They will be embedded in the AI-supported exhibition in both houses. The Project „The Intelligent Museum“ is funded by the Digital Culture Programme of the [Kulturstiftung des Bundes](https://www.kulturstiftung-des-bundes.de/en) (German Federal Cultural Foundation).
+
+As part of the project, digital curating will be critically examined using various approaches of digital art. Experimenting with new digital aesthetics and forms of expression enables new museum experiences and thus new ways of museum communication and visitor participation. The museum is transformed to a place of experience and critical exchange.
+
+![Logo](media/Logo_ZKM_DMN_KSB.png)
