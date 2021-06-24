@@ -67,12 +67,12 @@ If everything went Ok, you should now be able to open the generated project and 
 
 On macOS, a couple of additional manual steps are required to use ofxTensorflow2:
 
-1. Enable C++14 in openFrameworks (only once)
-2. Invoke `macos_install_libs.sh` in the project's Run Script build phases (after every project regeneration)
+1. Enable C++14 in openFrameworks (only once, Xcode + Makefile)
+2. Invoke `macos_install_libs.sh` in the Xcode project's Run Script build phases (after every project regeneration, Xcode only)
 
 See the detailed steps in the [ofxTensorflow2 readme](https://github.com/zkmkarlsruhe/ofxTensorFlow2#macos).
 
-Open the Xcode project, select the "HandTracker Debug" scheme, and hit "Run".
+For an Xcode build, Oopen the Xcode project, select the "HandTracker Debug" scheme, and hit "Run".
 
 For a Makefile build, build and run an example on the terminal:
 
@@ -83,7 +83,7 @@ make RunRelease
 ```
 ### Linux
 
-For a Makefile build, build and run an example on the terminal:
+Build and run an example on the terminal:
 
 ```shell
 cd HandTracker
