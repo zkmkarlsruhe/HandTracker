@@ -72,9 +72,9 @@ On macOS, a couple of additional manual steps are required to use ofxTensorflow2
 
 See the detailed steps in the [ofxTensorflow2 readme](https://github.com/zkmkarlsruhe/ofxTensorFlow2#macos).
 
-For an Xcode build, Oopen the Xcode project, select the "HandTracker Debug" scheme, and hit "Run".
+For an Xcode build, open the Xcode project, select the "HandTracker Debug" scheme, and hit "Run".
 
-For a Makefile build, build and run an example on the terminal:
+For a Makefile build, build and run on the terminal:
 
 ```shell
 cd HandTracker
@@ -83,7 +83,7 @@ make RunRelease
 ```
 ### Linux
 
-Build and run an example on the terminal:
+Build and run on the terminal:
 
 ```shell
 cd HandTracker
